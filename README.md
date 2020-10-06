@@ -1,3 +1,14 @@
+
+## Source files
+
++ reorderable_wrap.dart: `ReorderableWrap`, main widget
++ item.dart: `ReorderableWrapItem`, child widget of `ReorderableWrap`
++ notifier.dart: `ReorderableWrapNotifier`, the state of  `ReorderableWrapItem` items
++ provider.dart: `ReorderableWrapProvider` , 
+
+
+## Example
+
 ```dart
 import 'package:flutter/material.dart';
 import 'package:./reorderable_wrap.dart';
