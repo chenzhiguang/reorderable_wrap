@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:./provider.dart';
+import './provider.dart';
 
 class ReorderableWrapItem extends StatelessWidget {
   final Widget child;

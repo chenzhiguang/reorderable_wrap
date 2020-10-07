@@ -11,7 +11,7 @@
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:./reorderable_wrap.dart';
+import './reorderable_wrap.dart';
 
 class ExampleScreen extends StatefulWidget {
   @override
