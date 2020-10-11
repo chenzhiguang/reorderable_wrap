@@ -21,7 +21,7 @@ class DemoScreen extends StatefulWidget {
 }
 
 class _DemoScreenState extends State<DemoScreen> {
-  List<IconData> elements = [
+  final elements = const <IconData>[
     Icons.traffic,
     Icons.nature,
     Icons.eco,
