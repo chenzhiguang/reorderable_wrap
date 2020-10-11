@@ -13,12 +13,14 @@
 import 'package:flutter/material.dart';
 import './reorderable_wrap.dart';
 
-class ExampleScreen extends StatefulWidget {
+class DemoScreen extends StatefulWidget {
+  const DemoScreen({Key key}) : super(key: key);
+
   @override
-  _ExampleScreenState createState() => _ExampleScreenState();
+  _DemoScreenState createState() => _DemoScreenState();
 }
 
-class _ExampleScreenState extends State<ExampleScreen> {
+class _DemoScreenState extends State<DemoScreen> {
   List<IconData> elements = [
     Icons.traffic,
     Icons.nature,
@@ -32,10 +34,10 @@ class _ExampleScreenState extends State<ExampleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final double size = MediaQuery.of(context).size.width / 3;
+    final size = MediaQuery.of(context).size.width / 3;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Demo'),
+        title: const Text('Demo'),
       ),
       body: SingleChildScrollView(
         child: ReorderableWrap(
@@ -62,4 +64,5 @@ class _ExampleScreenState extends State<ExampleScreen> {
     );
   }
 }
+
 ```

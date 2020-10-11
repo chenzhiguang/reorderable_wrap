@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 class ReorderableWrapNotifier<T extends Widget> extends ChangeNotifier {
-  final List<T> children;
-  List<T> _children = [];
-  bool changed = false;
-
   ReorderableWrapNotifier({this.children}) {
-    _children.clear();
-    _children.addAll(children);
+    _children
+      ..clear()
+      ..addAll(children);
   }
+
+  final List<T> children;
+  final List<T> _children = [];
+  bool changed = false;
 
   void move(int oldIndex, int newIndex) {
     if (changed == false) {
@@ -18,8 +19,8 @@ class ReorderableWrapNotifier<T extends Widget> extends ChangeNotifier {
     try {
       children.insert(newIndex, children.removeAt(oldIndex));
       notifyListeners();
-    } catch (e) {
-      print('Error: ReorderableWrapNotifier.move');
+    } on Exception catch (e) {
+      print('Error: ReorderableWrapNotifier.move\n${e.toString()}');
     }
   }
 
@@ -28,16 +29,17 @@ class ReorderableWrapNotifier<T extends Widget> extends ChangeNotifier {
       return;
     }
 
-    children.clear();
-    children.addAll(_children);
+    children
+      ..clear()
+      ..addAll(_children);
     changed = false;
     notifyListeners();
   }
 
   int findIndex(ValueKey key) {
-    int index = 0;
+    var index = 0;
 
-    for (final T element in _children) {
+    for (final element in _children) {
       if (element.key == key) {
         break;
       }

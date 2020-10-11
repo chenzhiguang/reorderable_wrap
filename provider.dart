@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import './notifier.dart';
 
-class ReorderableWrapProvider extends InheritedNotifier {
-  final _State state = _State();
-  final ReorderableWrapNotifier notifier;
-  final Function(int oldIndex, int newIndex) onReorder;
-
+class ReorderableWrapProvider
+    extends InheritedNotifier<ReorderableWrapNotifier> {
   ReorderableWrapProvider({
-    this.notifier,
     this.onReorder,
     Key key,
     Widget child,
+    ReorderableWrapNotifier notifier,
   }) : super(key: key, notifier: notifier, child: child);
+
+  final _State state = _State();
+  final Function(int oldIndex, int newIndex) onReorder;
 
   @override
   bool updateShouldNotify(InheritedNotifier oldWidget) {
@@ -24,24 +24,24 @@ class ReorderableWrapProvider extends InheritedNotifier {
   void startDragging({ValueKey draggingKey, GlobalKey feedbackKey}) {
     if (state.inited != true) {
       Size size;
-      List<Offset> offsets = [];
-      state.elements.forEach((element) {
-        RenderBox box = element.findRenderObject();
+      final offsets = <Offset>[];
+      for (final element in state.elements) {
+        final RenderBox box = element.findRenderObject();
         offsets.add(box.localToGlobal(Offset.zero));
-        if (size == null) {
-          size = box.size;
-        }
-      });
-      state.size = size;
-      state.offsets = offsets;
-      state.inited = true;
+        size ??= box.size;
+      }
+      state
+        ..size = size
+        ..offsets = offsets
+        ..inited = true;
     }
 
-    final int index = notifier.findIndex(draggingKey);
-    state.newIndex = index;
-    state.oldIndex = index;
-    state.feedbackKey = feedbackKey;
-    state.active = true;
+    final index = notifier.findIndex(draggingKey);
+    state
+      ..newIndex = index
+      ..oldIndex = index
+      ..feedbackKey = feedbackKey
+      ..active = true;
   }
 
   void endDragging() {
@@ -52,7 +52,7 @@ class ReorderableWrapProvider extends InheritedNotifier {
     }
   }
 
-  addElement(BuildContext element) {
+  void addElement(BuildContext element) {
     state.elements.add(element);
   }
 

@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+
+import './item.dart';
 import './notifier.dart';
 import './provider.dart';
-import './item.dart';
+
 export './item.dart';
 
 class ReorderableWrap extends StatelessWidget {
-  final List<ReorderableWrapItem> children;
-  final Function(int oldIndex, int newIndex) onReorder;
-  ReorderableWrap({
+  const ReorderableWrap({
     @required this.children,
     @required this.onReorder,
-  });
+    Key key,
+  }) : super(key: key);
+
+  final List<ReorderableWrapItem> children;
+  final Function(int oldIndex, int newIndex) onReorder;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +32,8 @@ class ReorderableWrap extends StatelessWidget {
               if (false == provider.state.active || null == box) {
                 return;
               }
-              final Offset offset = box.localToGlobal(Offset.zero);
-              int newIndex = _findIndex(
+              final offset = box.localToGlobal(Offset.zero);
+              final newIndex = _findIndex(
                   offset, provider.state.offsets, provider.state.size);
               provider.move(provider.state.newIndex, newIndex);
             },
@@ -44,12 +48,12 @@ class ReorderableWrap extends StatelessWidget {
 }
 
 int _findIndex(Offset offset, List<Offset> offsets, Size size) {
-  final Offset firstOffset = offsets[0];
-  int index = 0;
+  final firstOffset = offsets[0];
+  var index = 0;
   try {
     offsets.asMap().forEach((i, item) {
-      final double dx = offset.dx + size.width / 2;
-      final double dy = offset.dy + size.height / 2;
+      final dx = offset.dx + size.width / 2;
+      final dy = offset.dy + size.height / 2;
       if ((dx > item.dx && dy > item.dy) ||
           (dx > item.dx && dy < firstOffset.dy && firstOffset.dy == item.dy) ||
           (dy > item.dy && dx < firstOffset.dx && firstOffset.dx == item.dx)) {
@@ -57,8 +61,8 @@ int _findIndex(Offset offset, List<Offset> offsets, Size size) {
       }
     });
     return index;
-  } catch (e) {
-    print('Error: _findIndex@ReorderableWrap');
+  } on Exception catch (e) {
+    print('Error: _findIndex@ReorderableWrap\n${e.toString()}');
     return 0;
   }
 }

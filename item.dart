@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
-import './provider.dart';
+import 'provider.dart';
 
+// NOTE: all the items must be the same size
 class ReorderableWrapItem extends StatelessWidget {
-  final Widget child;
-  final ValueKey key;
-  ReorderableWrapItem({
+  const ReorderableWrapItem({
     @required this.child,
-    @required this.key,
+    @required Key key,
   }) : super(key: key);
+
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
     final _key = GlobalKey();
-    final provider = ReorderableWrapProvider.of(context);
-    provider.addElement(context);
+    final provider = ReorderableWrapProvider.of(context)..addElement(context);
 
     return LongPressDraggable(
-      child: child,
       childWhenDragging: Opacity(
-        child: child,
         opacity: 0,
+        child: child,
       ),
       feedback: Container(
         key: _key,
@@ -37,6 +36,7 @@ class ReorderableWrapItem extends StatelessWidget {
       onDragEnd: (details) {
         provider.endDragging();
       },
+      child: child,
     );
   }
 }
