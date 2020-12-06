@@ -1,10 +1,13 @@
+# ReorderableWrap
+
+![example](./docs/demo.gif)
 
 ## Source files
 
-+ reorderable_wrap.dart: `ReorderableWrap`, main widget
-+ item.dart: `ReorderableWrapItem`, child widget of `ReorderableWrap`
-+ notifier.dart: `ReorderableWrapNotifier`, the state of  `ReorderableWrapItem` items
-+ provider.dart: `ReorderableWrapProvider` , 
+- reorderable_wrap.dart: `ReorderableWrap`, main widget
+- item.dart: `ReorderableWrapItem`, child widget of `ReorderableWrap`
+- notifier.dart: `ReorderableWrapNotifier`, the state of `ReorderableWrapItem` items
+- provider.dart: `ReorderableWrapProvider` ,
 
 
 ## Example
